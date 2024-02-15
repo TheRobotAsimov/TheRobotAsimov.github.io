@@ -66,7 +66,7 @@ try {
 
         let spaces = ipFin - ipIni + 1;
         let currentSerie;
-        document.getElementById('description').textContent += `[${ipFin}] - [${ipIni}] + 1 = ${spaces}\n`;
+        document.getElementById('description').textContent += `[${ipFin}] - [${ipIni}] + 1 = ${spaces} espacios\n`;
         document.getElementById('description').textContent += `-------------------------------------\n`;
         
         let i = 9;
