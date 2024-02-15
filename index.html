@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Página personal de prueba">
-    <meta name="robots" content="index, follow">
-    <title>Página de Github</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <p>TÍTULO</p>
-    </header>
+    <div class="centered">
+        <h1>Wildcard Calculator</h1>
+        <h2>Range Method</h2>
+    </div>
+  <div class="calculator">
+    <p>Initial IP</p>
+    <input type="text" class="screen" id="screen1">
+    <p>Last IP</p>
+    <input type="text" class="screen" id="screen2">
+    <div class="buttons">
+        <button onclick="calculate()">=</button>
+    </div>
+<!--     <input type="text" class="screen" id="screen3"> -->    
+        <textarea id="screen3" rows="4" cols="20"></textarea>
+    <div class="buttons">
+        <button onclick="clearScreen()">Clear</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
