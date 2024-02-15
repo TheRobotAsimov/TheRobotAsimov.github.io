@@ -29,7 +29,25 @@ function clearScreen() {
     document.getElementById('screen3').value = '';
 }
 
+function getRandomEmoji() {
+    const emojis = [
+      '😊', '😂', '😍', '🥳', '🎉', '👍', '🌟', '❤️', '🎈', '🍕', '🍩', '🚀', '🦄', '🌈', '🎶'
+    ];
+  
+    const randomIndex = Math.floor(Math.random() * emojis.length);
+  
+    return emojis[randomIndex];
+  }
+
 function calculate() {
+
+    const screen1Value = document.getElementById('screen1').value;
+  
+    if (screen1Value.trim() === null || screen1Value.trim() === ''){
+        document.getElementById('screen3').value = getRandomEmoji();
+        return;
+    }
+
 try {
     
     document.getElementById('screen3').value = '';
@@ -59,7 +77,7 @@ try {
             console.log("\n\n--------------\n");
 
             console.log(`\n.${ipAux} + .${currentSerie}`);
-            document.getElementById('screen3').value += `.${ipAux} + .${currentSerie}\n`;
+            document.getElementById('screen3').value += `x.x.x.${ipAux} + 0.0.0.${currentSerie}\n`;
             console.log(`.${ipAux} - `);
 
             ipAux += currentSerie;
@@ -81,7 +99,7 @@ try {
     
     } else {
     
-        document.getElementById('screen3').value += `Wrong IP range: ${ipIni} - ${ipFin}\n`;
+        document.getElementById('screen3').value = `Wrong IP range: ${ipIni} - ${ipFin}\n`;
 
     }
 
