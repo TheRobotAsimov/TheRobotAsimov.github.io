@@ -27,6 +27,9 @@ function clearScreen() {
     document.getElementById('screen1').value = '';
     document.getElementById('screen2').value = '';
     document.getElementById('screen3').value = '';
+
+    document.getElementById('description').textContent = ``;
+
 }
 
 function getRandomEmoji() {
@@ -51,6 +54,7 @@ function calculate() {
 try {
     
     document.getElementById('screen3').value = '';
+    document.getElementById('description').textContent = '';
 
     const ipIni = parseInt(document.getElementById('screen1').value);
     const ipFin = parseInt(document.getElementById('screen2').value);
@@ -76,17 +80,24 @@ try {
         while (spaces !== 0) {
             console.log("\n\n--------------\n");
 
-            console.log(`\n.${ipAux} + .${currentSerie}`);
+            /* console.log(`\n.${ipAux} + .${currentSerie}`); */
+            
+            document.getElementById('description').textContent += `-------------------------------------\n`;
+            document.getElementById('description').textContent += `IP \tWILDCARD\n`;
+            document.getElementById('description').textContent += `x.x.x.${ipAux} + 0.0.0.${currentSerie}\n`;
+            
             document.getElementById('screen3').value += `x.x.x.${ipAux} + 0.0.0.${currentSerie}\n`;
-            console.log(`.${ipAux} - `);
-
+            document.getElementById('description').textContent += `\nRANGO\n`;
+            document.getElementById('description').textContent += `x.x.x.${ipAux} - `;
+            
             ipAux += currentSerie;
-
-            console.log(`.${ipAux}`);
-
+            
+            document.getElementById('description').textContent += `x.x.x.${ipAux}\n`;
+            
             spaces = spaces - (currentSerie + 1);
-
-            console.log(`Abarco ${currentSerie + 1} y resta ${spaces}`);
+            
+            document.getElementById('description').textContent += `\nAbarco ${currentSerie + 1} y resta ${spaces}\n`;
+            document.getElementById('description').textContent += `-------------------------------------\n\n`;
 
             while (spaces <= serie[i]) {
                 i--;
