@@ -5,6 +5,7 @@ body {
   }
   
   .calculator {
+    margin: 0 auto;
     width: 200px;
     margin: 0 auto;
     border: 1px solid #ccc;
@@ -38,9 +39,14 @@ body {
   }
 
   .buttons {
+    margin: 0 auto;
+    text-align: center;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 5px;
+    display: flex; /* Activa el modelo de caja flex */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
   }
   
   .buttons button {
