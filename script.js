@@ -65,7 +65,7 @@ try {
 
         let i = 9;
 
-        while (spaces < serie[i]) {
+        while (spaces <= serie[i]) {
             i--;
         }
 
