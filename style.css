@@ -28,10 +28,15 @@ body {
   #screen3 {
     width: 95%;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 0px;
     padding: 5px;
   }
   
+  #structure {
+    font-size: 75%;
+    color: #999;
+  }
+
   .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -42,3 +47,5 @@ body {
     padding: 10px;
     font-size: 16px;
   }
+  
+  
