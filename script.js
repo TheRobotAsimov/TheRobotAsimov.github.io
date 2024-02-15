@@ -66,23 +66,24 @@ try {
 
         let spaces = ipFin - ipIni + 1;
         let currentSerie;
-
+        document.getElementById('description').textContent += `[${ipFin}] - [${ipIni}] + 1 = ${spaces}\n`;
+        document.getElementById('description').textContent += `-------------------------------------\n`;
+        
         let i = 9;
-
+        
         while (spaces <= serie[i]) {
             i--;
         }
-
+        
         currentSerie = serie[i];
-
+        
         let ipAux = ipIni;
-
+        
         while (spaces !== 0) {
-            console.log("\n\n--------------\n");
+            document.getElementById('description').textContent += `Wilcard mas cercana: ${currentSerie}\n\n`;
 
             /* console.log(`\n.${ipAux} + .${currentSerie}`); */
             
-            document.getElementById('description').textContent += `-------------------------------------\n`;
             document.getElementById('description').textContent += `IP \tWILDCARD\n`;
             document.getElementById('description').textContent += `x.x.x.${ipAux} + 0.0.0.${currentSerie}\n`;
             
