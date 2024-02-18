@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Substract Method</title>
+    <link rel="stylesheet" href="sm_style.css">
+</head>
+<body>
+
+    <div class="centered">
+        <h1>Wildcard Calculator</h1>
+        <h2>Substract Method</h2>
+    </div>
+
+    <div class="calculator">
+        <p>Mask (0 - 32)</p>
+        <div class="form-group">
+            <label for="screen1">x.x.x.x /</label>
+            <input type="number" class="screen" id="screen1" placeholder="Just Mask">
+        </div>
+        <div class="buttons">
+            <button onclick="calculate()">=</button>
+        </div>
+            <div class="centered" id="structure">
+                <p>Wildcard</p>     
+            </div>
+            <textarea id="screen3" rows="4" cols="20"></textarea>
+        <div class="buttons">
+            <button onclick="clearScreen()">Clear</button>
+        </div>
+      </div>
+
+    <div class="centered">
+        <p>serie = [0, 1, 3, 7, 15, 31, 63, 127, 254, 255]</p>
+        <h3>Process</h3>
+        <pre id = "description"></pre>
+    </div>
+
+    <script src="sm_script.js"></script>
+</body>
+</html>
