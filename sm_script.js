@@ -48,7 +48,12 @@ try {
         let i = 0;
         let maskDec = 0;
 
-        while (i <= mask-24)
+        /* En que octeto se calculara la mascara */
+        let position = Math.floor(mask/8);
+
+        let j = mask%8;
+
+        while (i <= j)
         {
             maskDec += maskValues[i];
             i++;
@@ -56,7 +61,42 @@ try {
 
         let wilcard = 255 - maskDec;
 
-        document.getElementById('screen3').value += `0.0.0.${wilcard}`;
+        document.getElementById('description').textContent += `-------------------------------------\n`;
+        document.getElementById('description').textContent += `\t255.255.255.255\n`;
+        
+        if (position === 3)
+        {
+            document.getElementById('screen3').value += `0.0.0.${wilcard}`;
+
+            document.getElementById('description').textContent += `-\t255.255.255.${maskDec}\n`;
+            document.getElementById('description').textContent += `_______________________\n`;
+            document.getElementById('description').textContent += `\t0.0.0.${wilcard}\n`;
+        }
+        if (position === 2)
+        {
+            document.getElementById('screen3').value += `0.0.${wilcard}.255`;
+
+            document.getElementById('description').textContent += `-\t255.255.${maskDec}.0\n`;
+            document.getElementById('description').textContent += `_______________________\n`;
+            document.getElementById('description').textContent += `\t0.0.${wilcard}.255\n`;
+        }
+        if (position === 1)
+        {
+            document.getElementById('screen3').value += `0.${wilcard}.255.255`;
+
+            document.getElementById('description').textContent += `-\t255.${maskDec}.0.0\n`;
+            document.getElementById('description').textContent += `_______________________\n`;
+            document.getElementById('description').textContent += `\t0.${wilcard}.255.255\n`;
+        }
+        if (position === 0)
+        {
+            document.getElementById('screen3').value += `${wilcard}.255.255.255\n`;
+            document.getElementById('screen3').value += `(Una mascara un poco rara)`;
+
+            document.getElementById('description').textContent += `-\t${maskDec}.0.0.0\n`;
+            document.getElementById('description').textContent += `_______________________\n`;
+            document.getElementById('description').textContent += `\t${wilcard}.255.255.255\n`;
+        }
         document.getElementById('description').textContent += `-------------------------------------\n`;
         
     } else {
