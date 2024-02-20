@@ -60,7 +60,7 @@ try {
         }
 
         let wilcard = 255 - maskDec;
-
+        
         document.getElementById('description').textContent += `-------------------------------------\n`;
         document.getElementById('description').textContent += `\t255.255.255.255\n`;
         

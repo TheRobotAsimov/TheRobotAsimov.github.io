@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Substract Method</title>
+    <link rel="stylesheet" href="oe_style.css">
+</head>
+<body>
+
+    <div class="centered">
+        <h1>Wildcard Calculator</h1>
+        <h2>Odd/Even Method</h2>
+    </div>
+
+    <div class="calculator">
+        <p>Mask (0 - 31)</p>
+        <div class="form-group">
+            <label for="screen1">x.x.x.0 /</label>
+            <select id="menu">
+                <option value="24">24</option>
+                <option value="16">16</option>
+                <option value="8">8</option>
+                <option value="Emoji">Emoji</option>
+            </select>
+        </div>
+        <div class="buttons">
+            <button onclick="calculate()">=</button>
+        </div>
+            <div class="centered" id="structure">
+                <p>Wildcard</p>     
+            </div>
+            <textarea id="screen3" rows="2" cols="20"></textarea>
+        <div class="buttons">
+            <button onclick="clearScreen()">Clear</button>
+        </div>
+      </div>
+
+    <div class="centered">
+        <h3>Explanation</h3>
+        <img src="bitwise-odd-even.png" alt="bitwise-odd-even">
+    </div>
+
+    <script src="oe_script.js"></script>
+</body>
+</html>
