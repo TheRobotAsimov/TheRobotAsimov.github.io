@@ -26,6 +26,8 @@ body {
   }
   .menu {
     display: none;
+    width: 50px;
+    height:fit-content;
   }
   .logo {
     width: 50px;
