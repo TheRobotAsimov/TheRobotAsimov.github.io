@@ -54,8 +54,8 @@ try {
         }
         if (mask === 8)
         {
-            document.getElementById('screen3').value += `Even:\tx.x.x.0\t  0.255.255.254\n`;
-            document.getElementById('screen3').value += `Odd:\tx.x.x.1\t  0.255.255.254\n`;
+            document.getElementById('screen3').value += `Even: x.x.x.0  0.255.255.254\n`;
+            document.getElementById('screen3').value += `Odd:  x.x.x.1  0.255.255.254\n`;
         }
 
     } else {
