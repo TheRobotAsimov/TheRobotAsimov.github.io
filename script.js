@@ -1,3 +1,13 @@
+const triline_menu = document.querySelector('.menu');
+const mobile_menu = document.querySelector('.mobile-menu');
+
+triline_menu.addEventListener('click', toggleMobileMenu);
+
+function toggleMobileMenu(){
+
+    mobile_menu.classList.toggle('inactive');
+}
+
 const screen1 = document.getElementById('screen1');
 
 screen1.addEventListener('input', function(event) {
