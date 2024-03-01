@@ -72,9 +72,27 @@
     <input type="text" min="0" max="255" class="screen ip-input" id="lIp3" disabled>
     <span class="screen">.</span>
     <input type="number" min="0" max="255" class="screen ip-input" id="lIp4">
+
+    <p>Access Type</p>
+    <select id="menuAT">
+        <option value="standard">Standard</option>
+        <option value="extended">Extended</option>
+    </select>
+    <p>Command Type</p>
+    <select id="menuCT">
+        <option value="number">Number</option>
+        <option value="name">Name</option>
+    </select>
     
-    <p>Access List ID</p>
-    <input type="number" min="1" max="200" class="screen ip-input" id="accessID" value="1">
+    <div class="ac-number">
+        <p>Access List ID</p>
+        <input type="number" min="1" max="200" class="screen ip-input" id="accessID" value="1">
+    </div>
+
+    <div class="ac-name inactive">
+        <p>Access List Name</p>
+        <input type="text" class="screen ip-input" id="accessName" placeholder="nombre">
+    </div>
 
     <div class="buttons">
         <button onclick="calculate()">=</button>
