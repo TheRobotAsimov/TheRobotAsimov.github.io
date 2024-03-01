@@ -1,12 +1,38 @@
 const triline_menu = document.querySelector('.menu');
 const mobile_menu = document.querySelector('.mobile-menu');
 
+const menuCT = document.getElementById("menuCT");
+
+
 triline_menu.addEventListener('click', toggleMobileMenu);
 
 function toggleMobileMenu(){
-
+    
     mobile_menu.classList.toggle('inactive');
 }
+
+menuCT.addEventListener("change", selectOption);
+const ac_number = document.querySelector('.ac-number');
+const ac_name = document.querySelector('.ac-name');
+function selectOption() {
+    var selectedOption = document.getElementById("menuCT").value;
+    if(selectedOption === "number") {
+        ac_number.classList.remove('inactive');
+        ac_name.classList.add('inactive');
+    } else if(selectedOption === "name") {
+        ac_name.classList.remove('inactive');
+        ac_number.classList.add('inactive');
+    }
+}
+
+/* function toggleACNumber(){
+    ac_number.classList.toggle('inactive');
+}
+
+function toggleACName(){
+    ac_name.classList.toggle('inactive');
+}
+ */
 
 //const screen1 = document.getElementById('screen1');
 
@@ -79,14 +105,15 @@ function calculate() {
         document.getElementById('screen3').value = getRandomEmoji();
         return;
     }
+    
+    const menuCT = document.getElementById("menuCT");
 
 try {
     
     document.getElementById('screen3').value = '';
     document.getElementById('description').textContent = '';
-
-    // const iIp4 = parseInt(document.getElementById('screen1').value);
-    // const lIp4 = parseInt(document.getElementById('screen2').value);
+    
+    const menuAT = document.getElementById("menuAT").value;
 
     const iIp1 = parseInt(document.getElementById('iIp1').value);
     const iIp2 = parseInt(document.getElementById('iIp2').value);
@@ -94,6 +121,17 @@ try {
     const iIp4 = parseInt(document.getElementById('iIp4').value);
 
     const lIp4 = parseInt(document.getElementById('lIp4').value);
+/* 
+    if (ip)
+
+    if(menuAT === "standard" && menuCT === "number"){
+
+    } */
+
+
+    // const iIp4 = parseInt(document.getElementById('screen1').value);
+    // const lIp4 = parseInt(document.getElementById('screen2').value);
+
 
     const accessList = document.getElementById('accessID').value;
 
