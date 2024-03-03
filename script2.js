@@ -148,8 +148,15 @@ iIp3.addEventListener('input', function(event) {
 });
   
 function clearScreen() {
-    document.getElementById('screen1').value = '';
-    document.getElementById('screen2').value = '';
+    document.getElementById('iIp1').value = '';
+    document.getElementById('iIp2').value = '';
+    document.getElementById('iIp3').value = '';
+    document.getElementById('iIp4').value = '';
+    document.getElementById('lIp4').value = '';
+    document.getElementById('dIp1').value = '';
+    document.getElementById('dIp2').value = '';
+    document.getElementById('dIp3').value = '';
+    document.getElementById('dIp4').value = '';
     document.getElementById('screen3').value = '';
 
     document.getElementById('description').textContent = ``;
@@ -195,6 +202,11 @@ try {
     const rule = document.getElementById('rule').value;
     
     if (ipValidation(iIp1.value, iIp2.value, iIp3.value, iIp4, lIp4)) {
+
+        if(dIp1.value === "" || dIp2.value === "" || dIp3.value === "" || dIp4.value === ""){
+            document.getElementById('screen3').value = `Destination IP is empty\n`;
+            return;
+        }
 
         if(menuAT.value === "extended" && (parseInt(accessList.value) < 100 || parseInt(accessList.value) > 199)){
             document.getElementById('screen3').value = `Wrong access list number ex\n`;
