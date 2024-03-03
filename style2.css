@@ -85,6 +85,31 @@ body {
 
   /* END */
 
+  #botonCopiar {
+    background-color: #1ba420; /* Color de fondo */
+    border: none; /* Sin borde */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como bloque en línea */
+    font-size: 16px; /* Tamaño de la fuente */
+    margin: 4px 2px; /* Margen */
+    cursor: pointer; /* Tipo de cursor */
+    border-radius: 8px; /* Borde redondeado */
+    transition-duration: 0.4s; /* Duración de la transición */
+  }
+
+  #botonCopiar:hover {
+    background-color: #0f4c12; /* Cambiar el color de fondo al pasar el ratón */
+  }
+
+  #mensajeCopiado {
+    display: none; /* Inicialmente oculto */
+    color: white;
+    text-align: center;
+  }
+  
   .calculator {
     margin: 0 auto;
     width: 350px;

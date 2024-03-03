@@ -6,7 +6,10 @@ const accessList = document.getElementById('accessID');
 var menuCT = document.getElementById("menuCT");
 var menuAT = document.getElementById("menuAT");
 
-/* Acces list 100 - 199 para extended */
+const dIp1 = document.getElementById('dIp1');
+const dIp2 = document.getElementById('dIp2');
+const dIp3 = document.getElementById('dIp3');
+const dIp4 = document.getElementById('dIp4');
 
 
 triline_menu.addEventListener('click', toggleMobileMenu);
@@ -18,21 +21,50 @@ function toggleMobileMenu(){
 menuAT.addEventListener("change", extendedOption);
 const protocols = document.querySelector('.protocols');
 const ports = document.querySelector('.ports');
+const ipDes = document.querySelector('.ipDes');
+const protocol = document.getElementById("protocol");
+const port = document.getElementById("port");
 function extendedOption() {
     var selectedOption = document.getElementById("menuAT").value;
     if(selectedOption === "standard") {
         protocols.classList.add('inactive');
         ports.classList.add('inactive');
         accessList.value = '1';
+        ipDes.classList.add('inactive');
     } else if(selectedOption === "extended") {
         protocols.classList.remove('inactive');
         ports.classList.remove('inactive');
         accessList.value = '100';
-    }
+        ipDes.classList.remove('inactive');
+/*         port.value = 'protocol';
+ */    }
 }
+var mensaje = document.getElementById('mensajeCopiado');
 
-const protocol = document.getElementById("protocol");
-const port = document.getElementById("port");
+document.getElementById('botonCopiar').addEventListener('click', function() {
+    var textarea = document.getElementById('screen3');
+    
+    // Selecciona el texto dentro del textarea
+    textarea.select();
+    
+    // Copia el texto seleccionado al portapapeles utilizando el API Clipboard
+    navigator.clipboard.writeText(textarea.value)
+      .then(() => {
+        console.log('Texto copiado al portapapeles correctamente');
+            // Muestra el mensaje de copiado correctamente
+        mensaje.style.display = 'block';
+        // Oculta el mensaje después de unos segundos
+        setTimeout(function() {
+            mensaje.style.display = 'none';
+        }, 3000); // 3000 ms = 3 segundos
+
+      })
+      .catch(err => {
+        console.error('Error al copiar el texto al portapapeles:', err);
+      });
+
+    textarea.setSelectionRange(0, 0);
+  });
 
 protocol.addEventListener("change", selectProtocol);
 
@@ -173,6 +205,11 @@ try {
             return;
         }
 
+        if(protocol.value === "protocol"){
+            document.getElementById('screen3').value = `Select a protocol\n`;
+            return;
+        }
+
         const serie = [0, 1, 3, 7, 15, 31, 63, 127, 254, 255];
 
         let spaces = lIp4 - iIp4 + 1;
@@ -213,26 +250,30 @@ try {
 
             if(menuAT.value === "extended" && menuCT.value === "number"){
                 if(port.value === "web"){
-                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 80\n`;
-                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 443\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 80\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 443\n`;
                 } else if(port.value === "dhcp"){
-                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 67\n`;
-                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 68\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 67\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 68\n`;
+                } else if(protocol.value === "ip" || protocol.value === "icmp"){
+                document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0\n`;
                 } else {
-                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq ${port.value}\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq ${port.value}\n`;
                 }
                 
             }
 
             if(menuAT.value === "extended" && menuCT.value === "name"){
                 if(port.value === "web"){
-                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 80\n`;
-                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 443\n`;
+                    document.getElementById('screen3').value += `${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 80\n`;
+                    document.getElementById('screen3').value += `${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 443\n`;
                 } else if(port.value === "dhcp"){
-                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 67\n`;
-                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 68\n`;
+                    document.getElementById('screen3').value += `${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 67\n`;
+                    document.getElementById('screen3').value += `${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq 68\n`;
+                } else if(protocol.value === "ip" || protocol.value === "icmp"){
+                    document.getElementById('screen3').value += `${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0\n`;
                 } else {
-                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq ${port.value}\n`;
+                    document.getElementById('screen3').value += `${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} ${dIp1.value}.${dIp2.value}.${dIp3.value}.${dIp4.value} 0.0.0.0 eq ${port.value}\n`;
                 }
             }
 

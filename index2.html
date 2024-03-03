@@ -78,6 +78,16 @@
         <option value="standard">Standard</option>
         <option value="extended">Extended</option>
     </select>
+    <div class="ipDes inactive">
+      <p>IP Destination</p>
+      <input type="text" min="0" max="255" class="screen ip-input" id="dIp1" value="0">
+      <span class="screen">.</span>
+      <input type="text" min="0" max="255" class="screen ip-input" id="dIp2" value="0">
+      <span class="screen">.</span>
+      <input type="text" min="0" max="255" class="screen ip-input" id="dIp3" value="0">
+      <span class="screen">.</span>
+      <input type="number" min="0" max="255" class="screen ip-input" id="dIp4" value="0">
+    </div>
     <div class="protocols inactive">
       <p>Protocol</p>
       <select id="protocol">
@@ -129,6 +139,8 @@
             <p>Packet Tracer Commands</p>     
         </div>
         <textarea id="screen3" rows="7" cols="20"></textarea>
+        <button id="botonCopiar">Copy Copy</button>
+        <p id="mensajeCopiado">¡Texto copiado correctamente!</p>
     <div class="buttons">
         <button onclick="clearScreen()">Clear</button>
     </div>
