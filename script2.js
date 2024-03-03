@@ -1,14 +1,63 @@
 const triline_menu = document.querySelector('.menu');
 const mobile_menu = document.querySelector('.mobile-menu');
 
-const menuCT = document.getElementById("menuCT");
+const accessList = document.getElementById('accessID');
+
+var menuCT = document.getElementById("menuCT");
+var menuAT = document.getElementById("menuAT");
+
+/* Acces list 100 - 199 para extended */
 
 
 triline_menu.addEventListener('click', toggleMobileMenu);
 
 function toggleMobileMenu(){
-    
     mobile_menu.classList.toggle('inactive');
+}
+
+menuAT.addEventListener("change", extendedOption);
+const protocols = document.querySelector('.protocols');
+const ports = document.querySelector('.ports');
+function extendedOption() {
+    var selectedOption = document.getElementById("menuAT").value;
+    if(selectedOption === "standard") {
+        protocols.classList.add('inactive');
+        ports.classList.add('inactive');
+        accessList.value = '1';
+    } else if(selectedOption === "extended") {
+        protocols.classList.remove('inactive');
+        ports.classList.remove('inactive');
+        accessList.value = '100';
+    }
+}
+
+const protocol = document.getElementById("protocol");
+const port = document.getElementById("port");
+
+protocol.addEventListener("change", selectProtocol);
+
+function selectProtocol() {
+    
+    port.innerHTML = '';
+
+    if(protocol.value === "icmp" || protocol.value === "ip") {
+        ports.classList.add('inactive');
+    }
+
+    if(protocol.value === "tcp") {
+        ports.classList.remove('inactive');
+        port.appendChild(new Option("FTP", "21"));
+        port.appendChild(new Option("SSH", "22"));
+        port.appendChild(new Option("Telnet", "23"));
+        port.appendChild(new Option("WEB", "web"));
+    }
+
+    if(protocol.value === "udp") {
+        ports.classList.remove('inactive');
+        port.appendChild(new Option("DNS", "53"));
+        port.appendChild(new Option("DHCP", "dhcp"));
+    }
+
 }
 
 menuCT.addEventListener("change", selectOption);
@@ -85,12 +134,8 @@ function getRandomEmoji() {
     return emojis[randomIndex];
   }
 
-function ipValidation(iIp1, iIp2, iIp3, iIp4, lIp4) {
-    if (iIp1 < 255 && iIp2 < 255 && iIp3 < 255 && iIp4 < 255 && lIp4 < 255) {
-        return true;
-    }
-
-    if (iIp4 < lIp4) {
+function ipValidation(iIp1v, iIp2v, iIp3v, iIp4, lIp4) {
+    if (iIp1v < 255 && iIp2v < 255 && iIp3v < 255 && iIp4 < 255 && lIp4 < 255 && iIp4 < lIp4) {
         return true;
     }
 
@@ -106,37 +151,27 @@ function calculate() {
         return;
     }
     
-    const menuCT = document.getElementById("menuCT");
-
 try {
     
     document.getElementById('screen3').value = '';
     document.getElementById('description').textContent = '';
     
-    const menuAT = document.getElementById("menuAT").value;
-
-    const iIp1 = parseInt(document.getElementById('iIp1').value);
-    const iIp2 = parseInt(document.getElementById('iIp2').value);
-    const iIp3 = parseInt(document.getElementById('iIp3').value);
-    const iIp4 = parseInt(document.getElementById('iIp4').value);
+    const iIp4 = parseInt(iIp4Value);
 
     const lIp4 = parseInt(document.getElementById('lIp4').value);
-/* 
-    if (ip)
 
-    if(menuAT === "standard" && menuCT === "number"){
+    const rule = document.getElementById('rule').value;
+    
+    if (ipValidation(iIp1.value, iIp2.value, iIp3.value, iIp4, lIp4)) {
 
-    } */
-
-
-    // const iIp4 = parseInt(document.getElementById('screen1').value);
-    // const lIp4 = parseInt(document.getElementById('screen2').value);
-
-
-    const accessList = document.getElementById('accessID').value;
-
-    if (ipValidation(iIp1, iIp2, iIp3, iIp4, lIp4)) {
-
+        if(menuAT.value === "extended" && (parseInt(accessList.value) < 100 || parseInt(accessList.value) > 199)){
+            document.getElementById('screen3').value = `Wrong access list number ex\n`;
+            return;
+        }
+        if(menuAT.value === "standard" && (parseInt(accessList.value) < 1 || parseInt(accessList.value) > 99)){
+            document.getElementById('screen3').value = `Wrong access list number st\n`;
+            return;
+        }
 
         const serie = [0, 1, 3, 7, 15, 31, 63, 127, 254, 255];
 
@@ -154,17 +189,56 @@ try {
         currentSerie = serie[i];
         
         let ipAux = iIp4;
+
+        const accessName = document.getElementById('accessName').value;
+        if(menuAT.value === "standard" && menuCT.value === "name"){
+            document.getElementById('screen3').value += `ip access-list standard ${accessName}\n`;
+        }
+
+        if(menuAT.value === "extended" && menuCT.value === "name"){
+            document.getElementById('screen3').value += `ip access-list extended ${accessName}\n`;
+        }
         
         while (spaces !== 0) {
-            document.getElementById('description').textContent += `Wilcard mas cercana: ${currentSerie}\n\n`;
-
+            
             /* console.log(`\n.${ipAux} + .${currentSerie}`); */
             
+            if(menuAT.value === "standard" && menuCT.value === "number"){
+                document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie}\n`;
+            }
+            
+            if(menuAT.value === "standard" && menuCT.value === "name"){
+                document.getElementById('screen3').value += `${rule} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie}\n`;
+            }
+
+            if(menuAT.value === "extended" && menuCT.value === "number"){
+                if(port.value === "web"){
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 80\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 443\n`;
+                } else if(port.value === "dhcp"){
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 67\n`;
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 68\n`;
+                } else {
+                    document.getElementById('screen3').value += `access-list ${accessList.value} ${rule} ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq ${port.value}\n`;
+                }
+                
+            }
+
+            if(menuAT.value === "extended" && menuCT.value === "name"){
+                if(port.value === "web"){
+                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 80\n`;
+                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 443\n`;
+                } else if(port.value === "dhcp"){
+                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 67\n`;
+                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq 68\n`;
+                } else {
+                    document.getElementById('screen3').value += `deny ${protocol.value} ${iIp1.value}.${iIp2.value}.${iIp3.value}.${ipAux} 0.0.0.${currentSerie} eq ${port.value}\n`;
+                }
+            }
+
+            document.getElementById('description').textContent += `Wilcard mas cercana: ${currentSerie}\n\n`;
             document.getElementById('description').textContent += `IP \tWILDCARD\n`;
             document.getElementById('description').textContent += `x.x.x.${ipAux} + 0.0.0.${currentSerie}\n`;
-            
-            document.getElementById('screen3').value += `access-list ${accessList} deny ${iIp1}.${iIp2}.${iIp3}.${ipAux} 0.0.0.${currentSerie}\n`;
-            
             document.getElementById('description').textContent += `\nRANGO\n`;
             document.getElementById('description').textContent += `x.x.x.${ipAux} - `;
             
@@ -184,6 +258,35 @@ try {
             currentSerie = serie[i];
 
             ipAux++;
+        }
+
+        /* permit any */
+        if(menuAT.value === "standard" && menuCT.value === "number" && rule === "permit"){
+            document.getElementById('screen3').value += `access-list ${accessList.value} deny any\n`;
+        }
+        if(menuAT.value === "standard" && menuCT.value === "number" && rule === "deny"){
+            document.getElementById('screen3').value += `access-list ${accessList.value} permit any\n`;
+        }
+
+        if(menuAT.value === "standard" && menuCT.value === "name" && rule === "permit"){
+            document.getElementById('screen3').value += `deny any\n`;
+        }
+        if(menuAT.value === "standard" && menuCT.value === "name" && rule === "deny"){
+            document.getElementById('screen3').value += `permit any\n`;
+        }
+
+        if(menuAT.value === "extended" && menuCT.value === "number" && rule === "permit"){
+            document.getElementById('screen3').value += `access-list ${accessList.value} deny ip any any\n`;
+        }
+        if(menuAT.value === "extended" && menuCT.value === "number" && rule === "deny"){
+            document.getElementById('screen3').value += `access-list ${accessList.value} permit ip any any\n`;
+        }
+
+        if(menuAT.value === "extended" && menuCT.value === "name" && rule === "permit"){
+            document.getElementById('screen3').value += `deny ip any any\n`;
+        }
+        if(menuAT.value === "extended" && menuCT.value === "name" && rule === "deny"){
+            document.getElementById('screen3').value += `permit ip any any\n`;
         }
     
     } else {

@@ -78,6 +78,27 @@
         <option value="standard">Standard</option>
         <option value="extended">Extended</option>
     </select>
+    <div class="protocols inactive">
+      <p>Protocol</p>
+      <select id="protocol">
+        <option value="protocol">Select</option>
+        <option value="tcp">TCP</option>
+        <option value="udp">UDP</option>
+        <option value="ip">IP</option>
+        <option value="icmp">ICMP</option>
+      </select>
+    </div>
+    <div class="ports inactive">
+      <p>Port</p>
+      <select id="port">
+          <!-- <option value="ftp">FTP</option>
+          <option value="ssh">SSH</option>
+          <option value="tel">Telnet</option>
+          <option value="dns">DNS</option>
+          <option value="dhcp">DHCP</option>
+          <option value="web">Pagina WEB</option> -->
+      </select>
+    </div>
     <p>Command Type</p>
     <select id="menuCT">
         <option value="number">Number</option>
@@ -85,21 +106,27 @@
     </select>
     
     <div class="ac-number">
-        <p>Access List ID</p>
+      <p>Access List ID</p>
         <input type="number" min="1" max="200" class="screen ip-input" id="accessID" value="1">
     </div>
 
     <div class="ac-name inactive">
         <p>Access List Name</p>
-        <input type="text" class="screen ip-input" id="accessName" placeholder="nombre">
+        <input type="text" class="screen" id="accessName" value="#SaulParaRector">
     </div>
 
+    <p>Rule</p>
+    <select id="rule">
+        <option value="deny">Deny</option>
+        <option value="permit">Permit</option>
+    </select>
+    
     <div class="buttons">
         <button onclick="calculate()">=</button>
     </div>
 <!--     <input type="text" class="screen" id="screen3"> -->
         <div class="centered" id="structure">
-            <p>IP address + Wildcard</p>     
+            <p>Packet Tracer Commands</p>     
         </div>
         <textarea id="screen3" rows="7" cols="20"></textarea>
     <div class="buttons">
