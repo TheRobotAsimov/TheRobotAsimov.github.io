@@ -174,7 +174,7 @@ function getRandomEmoji() {
   }
 
 function ipValidation(iIp1v, iIp2v, iIp3v, iIp4, lIp4) {
-    if (iIp1v < 255 && iIp2v < 255 && iIp3v < 255 && iIp4 < 255 && lIp4 < 255 && iIp4 < lIp4) {
+    if (iIp1v < 255 && iIp2v < 255 && iIp3v < 255 && iIp4 < 255 && lIp4 < 255 && iIp4 <= lIp4) {
         return true;
     }
 
