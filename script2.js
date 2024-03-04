@@ -217,7 +217,7 @@ try {
             return;
         }
 
-        if(protocol.value === "protocol"){
+        if(menuAT === "extended" && protocol.value === "protocol"){
             document.getElementById('screen3').value = `Select a protocol\n`;
             return;
         }
