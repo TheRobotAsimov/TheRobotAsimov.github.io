@@ -203,7 +203,7 @@ try {
     
     if (ipValidation(iIp1.value, iIp2.value, iIp3.value, iIp4, lIp4)) {
 
-        if(dIp1.value === "" || dIp2.value === "" || dIp3.value === "" || dIp4.value === ""){
+        if(menuAT.value === "extended" && (dIp1.value === "" || dIp2.value === "" || dIp3.value === "" || dIp4.value === "")){
             document.getElementById('screen3').value = `Destination IP is empty\n`;
             return;
         }
